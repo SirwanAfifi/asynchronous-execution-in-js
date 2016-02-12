@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<br />
+
+<ul id="result">Hello</ul>
+@section scripts
+{
+    <script>
+        $(function () {
+            var _worker;
+
+            _worker = new Worker('@Url.Content("~/Scripts/getData.js")');
+            _worker.addEventListener("message", messageHander, false);
+            _worker.postMessage("fetch");
+
+            function messageHander(e) {
+                $("#result").html(e.data);
+            }
+
+        });
+    </script>
+}
